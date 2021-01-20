@@ -55,6 +55,9 @@ namespace Ighan.Analitics.WebAPI
 
             app.UseAuthorization();
 
+            using (var scope = app.ApplicationServices.CreateScope())
+                scope.ServiceProvider.GetRequiredService<AnaliticsDbContext>().Database.Migrate();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
